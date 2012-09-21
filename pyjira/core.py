@@ -15,6 +15,38 @@ class JiraClient(object):
     def my(self, **kwargs):
         self._list_my_issues(**kwargs)
 
+    def issue(self, **kwargs):
+        issue_id = kwargs['issue_id']
+        issue = self.jira.issue(issue_id)
+
+        print 'ID: %s' % issue.key
+        print 'URL: %s/browse/%s' % (self.server, issue.key)
+        print 'Assignee: %s' % issue.fields.assignee.name
+        print 'Status: %s' % issue.fields.status.name
+        print ''
+        print 'Summary: %s' % issue.fields.summary
+        print ''
+        print 'Details: %s' % issue.fields.description
+
+    def log(self, **kwargs):
+        issue_id = kwargs['issue_id']
+        issue = self.jira.issue(issue_id)
+
+        time_spent = kwargs['time']
+        msg = kwargs['message']
+
+        #FIXME: add comment as a part of worklog (investigate API)
+        self.jira.add_comment(issue, msg)
+        self.jira.add_worklog(issue, time_spent)
+        print 'Your worklog was saved'
+
+    def resolve(self, **kwargs):
+        issue_id = kwargs['issue_id']
+        issue = self.jira.issue(issue_id)
+
+        self.jira.transition_issue(issue, '5', resolution={'name': 'Implemented'})
+        print 'Issue %s was resolved as implemented' % issue_id
+
     def _list_my_issues(self, **kwargs):
         query_parts = ['assignee=%s' % (self.username)]
 

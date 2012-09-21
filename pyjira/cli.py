@@ -27,6 +27,20 @@ def create_argparse():
                                      action='store_true',
                                      help='Issues that have unresolved status')
 
+    issue_details_parser = subparsers.add_parser('issue',
+                                                 help='Displays issue details')
+    issue_details_parser.add_argument('issue_id', help='Issue key')
+
+    log_work_parser = subparsers.add_parser('log', help='Log your work')
+    log_work_parser.add_argument('issue_id', help='Issue key')
+    log_work_parser.add_argument('-m', '--message', required=True, 
+                                              help='Message; work description')
+    log_work_parser.add_argument('-t', '--time', help='Time spent', 
+                                                                 required=True)
+
+    resolve_parser = subparsers.add_parser('resolve', help='Resolve issue')
+    resolve_parser.add_argument('issue_id', help='Issue key')
+    
     return parser
 
 def main():
