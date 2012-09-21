@@ -1,4 +1,3 @@
-#!python
 # -*- coding: utf8 -*-
 from jira.client import JIRA
 
