@@ -4,10 +4,10 @@ As a software developer I use JIRA everyday to:
 
   -- assign task to me and star working on it
   -- see task details
-  -- see all tasks that are assign to me
-  -- view task ID for commit messages
+  -- see all tasks that are assigned to me
+  -- view task ID for nice commit messages
   -- resolve task as fixed or implemented
-  -- add worklog to the task that I am currently working on
+  -- add worklog/comment to the task that I am currently working on
 
 If I am programming in Java, I can use Eclipse with Mylyn. That works great. 
 However, when I am programming in C, JavaScript or Python using Vim I need to
