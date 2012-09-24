@@ -34,12 +34,21 @@ def create_argparse():
     log_work_parser = subparsers.add_parser('log', help='Log your work')
     log_work_parser.add_argument('issue_id', help='Issue key')
     log_work_parser.add_argument('-m', '--message', required=True, 
-                                              help='Message; work description')
+                                 help='Message; work description')
     log_work_parser.add_argument('-t', '--time', help='Time spent', 
-                                                                 required=True)
+                                 required=True)
 
     resolve_parser = subparsers.add_parser('resolve', help='Resolve issue')
     resolve_parser.add_argument('issue_id', help='Issue key')
+
+    assign_parser = subparsers.add_parser('assign', help='Assign issue')
+    assign_parser.add_argument('issue_id', help='Issue key')
+    assign_parser.add_argument('-s', '--start', help='Start progress on issue',
+                               action="store_true")
+    
+    todo_parser = subparsers.add_parser('todo', help='Issues to work on')
+    todo_parser.add_argument('-p', '--project', 
+                             help='Only issues from specified project')
     
     return parser
 

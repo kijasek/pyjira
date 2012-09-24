@@ -47,6 +47,27 @@ class JiraClient(object):
         self.jira.transition_issue(issue, '5', resolution={'name': 'Implemented'})
         print 'Issue %s was resolved as implemented' % issue_id
 
+    def assign(self, **kwargs):
+        issue_id = kwargs['issue_id']
+        issue = self.jira.issue(issue_id)
+
+        self.jira.assign_issue(issue, self.username)
+        print 'Issue %s was assigned to %s' % (issue_id, self.username)
+        if kwargs['start']:
+            self.jira.transition_issue(issue, '4')
+            print 'Issue %s was started' % issue_id
+
+    def todo(self, **kwargs):
+        query_parts = ['status = Open', 'type != Story', 'created >= "-14d"']
+
+        if kwargs['project'] is not None: 
+            query_parts.append('project=%s' % kwargs['project'])
+        elif self.default_project is not None:
+            query_parts.append('project=%s' % self.default_project)
+
+        query = ' and '.join(query_parts)      
+        self._perform_and_print_query(query)
+
     def _list_my_issues(self, **kwargs):
         query_parts = ['assignee=%s' % (self.username)]
 
@@ -59,9 +80,11 @@ class JiraClient(object):
             query_parts.append('resolution=unresolved')
         
         query = ' and '.join(query_parts)      
+        self._perform_and_print_query(query)
+
+    def _perform_and_print_query(self, query):
         my_issues = self.jira.search_issues(query)
 
         for issue in my_issues:
             print '%s\t%s' % (issue.key, issue.fields.summary)
-
 
