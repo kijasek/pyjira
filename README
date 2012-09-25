@@ -13,5 +13,13 @@ If I am programming in Java, I can use Eclipse with Mylyn. That works great.
 However, when I am programming in C, JavaScript or Python using Vim I need to
 switch to JIRA's web interface. That's inefficient. 
 
-Pyjira is used by me now to do basic JIRA tasks straight from command line.
+Pyjira is now used by me to do basic JIRA tasks straight from the command line.
+Pyjira uses JIRA REST API via jira-python project.
+
+Sample use cases:
+
+$> pyjira todo -p MYPROJECT
+$> pyjira assign XXX-1234
+$> pyjira log XXX-1234 -m 'Coding and testing' -t '2d'
+$> pyjira resolve XXX-1234
 
